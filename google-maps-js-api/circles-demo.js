@@ -1,12 +1,35 @@
+/*
+ * Configuration.
+ */
+
+planvineAPIRoot = "http://planvine.com/api/v1"
+planvineAPIKey = "8a33569b01b94d71b8817a29b3256843"
 categoryColours = {
   3: "#FF0000", // Film
   4: "#00FF00", // Food & Drink
   6: "#0000FF", // Comedy
   22: "#F0F000" // Sport
 }
+resultsPerPage = 1000
 
-function getPlanvineEvents(categoryID) {
-  return eventsByCategory[categoryID]
+/*
+ * Behaviour.
+ */
+
+// function getPlanvineEvents(categoryID) {
+//   return eventsByCategory[categoryID]
+// }
+
+function getPlanvineEventsByCategory(categoryID, success) {
+    $.ajax({
+        url: planvineAPIRoot + "/category/" + categoryID + "/events",
+        data: {
+            api_key: planvineAPIKey,
+            results_per_page: resultsPerPage
+        },
+        success: success,
+        dataType: 'jsonp'
+    })
 }
 
 function plotCircle(map, center, radius, colour) {
@@ -47,12 +70,18 @@ function initialize() {
   categoryIDs = [3, 4, 6, 22] // Food and Drink
 
   for( var i in categoryIDs ) {
-    var category = categoryIDs[i]
+    var categoryID = categoryIDs[i]
 
-    response = getPlanvineEvents(category)
-    events = response.data
+    //response = getPlanvineEvents(categoryID)
+    //events = response.data
 
-    plotEvents(map, events, categoryColours[category])
+    //plotEvents(map, events, categoryColours[categoryID])
+    plotEventsCallback = function(categoryID) {
+      return function(data, textStatus, jqXHR) {
+        plotEvents(map, data.data, categoryColours[categoryID])
+      }
+    }
+    getPlanvineEventsByCategory(categoryID, plotEventsCallback(categoryID))
   }
 
 }
