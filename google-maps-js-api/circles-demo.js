@@ -45,6 +45,17 @@ function plotCircle(map, center, radius, colour) {
     });
 }
 
+// function plotImage(map, position, imageURL) {
+//   new google.maps.Marker({
+//       position: position,
+//       map: map,
+//       icon: new google.maps.Icon({
+//         scaledSize: new google.maps.Size(100, 100),
+//         url: imageURL
+//       })
+//   })
+// }
+
 function plotEvents(map, events, colour) {
   for( var i in events ) {
     event_ = events[i]
@@ -54,6 +65,11 @@ function plotEvents(map, events, colour) {
       800,
       colour
     )
+    // plotImage(
+    //   map,
+    //   new google.maps.LatLng(event_.venue.lat, event_.venue.lng),
+    //   event_.photo.url
+    // )
   }
 }
 
