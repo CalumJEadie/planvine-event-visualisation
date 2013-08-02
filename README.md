@@ -20,4 +20,4 @@ Colour - Category
 
 Intensity - Number of events per time period
 
-[[screenshot.png]]
+![Visualisation of the distribution of events by category and intensity across London](https://raw.github.com/CalumJEadie/planvine-event-visualisation/master/screenshot.png)
