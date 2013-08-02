@@ -9,6 +9,8 @@ Built using:
 
 ## Circles demo
 
+`google-maps-js-api/circles-demo.html`
+
 Location - location of venue
 
 Colour - Category
